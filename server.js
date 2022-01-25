@@ -23,12 +23,20 @@ const server = http.createServer(function (req, res) {
     //listen on port 8080
 });
 
-server.listen(port, () => {
-  console.log(`Server running at port ${port}`)
-})
+var argv = require('minimist')(process.argv.slice(2));
+console.log(argv);
 
-const args = require('minimist')(process.argv.slice(2))
-args['name'] //joe
+if (argv.port != 3000) {
+    server.listen(argv.port, () => {
+        console.log(`Server running at port ${argv.port}`)
+    })
+} else {
+    server.listen(port, () => {
+        console.log(`Server running at port ${port}`)
+    })
+}
+
+
 
 
 // Require fs module
