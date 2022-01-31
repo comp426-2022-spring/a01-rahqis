@@ -1,8 +1,6 @@
 // Require http module
 const http = require('http')
 
-const port = process.env.PORT || 3000
-
 // const server = http.createServer((req, res) => {
 //     res.statusCode = 200
 //     res.setHeader('Content-Type', 'text/html')
@@ -10,6 +8,9 @@ const port = process.env.PORT || 3000
 
 //     res.end('./www/index.html')
 // })
+
+const args = require('minimist')(process.argv.slice(2))
+args['port'] //joe
 
 const server = http.createServer(function (req, res) {
     const fs = require('fs')
@@ -20,21 +21,15 @@ const server = http.createServer(function (req, res) {
         res.write(data);
         res.end();
     });
-    //listen on port 8080
 });
 
-var argv = require('minimist')(process.argv.slice(2));
-console.log(argv);
 
-if (argv.port != 3000) {
-    server.listen(argv.port, () => {
-        console.log(`Server running at port ${argv.port}`)
-    })
-} else {
-    server.listen(port, () => {
-        console.log(`Server running at port ${port}`)
-    })
-}
+
+const port = args.port || process.env.PORT || 3000
+
+server.listen(port, () => {
+  console.log(`Server running at port ${port}`)
+})
 
 
 
