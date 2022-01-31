@@ -23,14 +23,25 @@ const server = http.createServer(function (req, res) {
     });
 });
 
+const fs = require('fs')
+
 
 
 const port = args.port || process.env.PORT || 3000
 
-server.listen(port, () => {
-  console.log(`Server running at port ${port}`)
-})
+fs.readFile('./www/index.html', 'utf8', (err, data) => {
+    if (err) {
+        console.error(err)
+        return
+        process.exit(1)
+    }
 
+
+    server.listen(port, () => {
+        console.log(`Server running at port ${port}`)
+    })
+
+})
 
 
 
